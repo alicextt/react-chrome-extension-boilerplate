@@ -6,7 +6,7 @@ import style from './TodoItem.css';
 export default class TodoItem extends Component {
 
   static propTypes = {
-    todo: PropTypes.object.isRequired,
+    account: PropTypes.object.isRequired,
     editTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
     completeTodo: PropTypes.func.isRequired
@@ -43,8 +43,12 @@ export default class TodoItem extends Component {
     deleteTodo(todo.id);
   };
 
+  openTab = (id) => {
+    chrome.tabs.create({active: true, url: `https://instantpage.godaddy.com/en-US/editor/${id}`});
+  }
+
   render() {
-    const { todo } = this.props;
+    const { account } = this.props;
 
     let element;
     if (this.state.editing) {
@@ -58,19 +62,10 @@ export default class TodoItem extends Component {
     } else {
       element = (
         <div className={style.view}>
-          <input
-            className={style.toggle}
-            type="checkbox"
-            checked={todo.completed}
-            onChange={this.handleComplete}
-          />
-          <label onDoubleClick={this.handleDoubleClick}>
-            {todo.text}
+          <label>
+            {account.name}
           </label>
-          <button
-            className={style.destroy}
-            onClick={this.handleDelete}
-          />
+          <a onClick={ this.openTab.bind(null, account.id) } className={style.button}>Launch</a>
         </div>
       );
     }
@@ -78,8 +73,6 @@ export default class TodoItem extends Component {
     return (
       <li
         className={classnames({
-          [style.completed]: todo.completed,
-          [style.editing]: this.state.editing,
           [style.normal]: !this.state.editing
         })}
       >

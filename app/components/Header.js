@@ -1,27 +1,23 @@
 import React, { PropTypes, Component } from 'react';
-import TodoTextInput from './TodoTextInput';
+import style from './Header.css';
 
 export default class Header extends Component {
 
   static propTypes = {
-    addTodo: PropTypes.func.isRequired
+    changeTab: PropTypes.func.isRequired
   };
 
-  handleSave = (text) => {
-    if (text.length !== 0) {
-      this.props.addTodo(text);
-    }
+  handleChange = (text) => {
+    this.props.changeTab(text);
   };
 
   render() {
     return (
       <header>
-        <h1>todos</h1>
-        <TodoTextInput
-          newTodo
-          onSave={this.handleSave}
-          placeholder="What needs to be done?"
-        />
+        <div className={style.tab}>
+          <button onClick={ this.handleChange.bind(null, 'accounts')}>Swtich Accounts</button>
+          <button onClick={ this.handleChange.bind(null, 'search')}>Search</button>
+        </div>
       </header>
     );
   }

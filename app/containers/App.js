@@ -8,7 +8,8 @@ import style from './App.css';
 
 @connect(
   state => ({
-    todos: state.todos
+    todos: state.todos,
+    accounts: state.accounts
   }),
   dispatch => ({
     actions: bindActionCreators(TodoActions, dispatch)
@@ -21,13 +22,22 @@ export default class App extends Component {
     actions: PropTypes.object.isRequired
   };
 
+  constructor(props, context){
+    super(props, context);
+    this.state = { active : 'accounts'}
+  }
+
+  handleChangeTab = (ch) => {
+    this.setState({ active: ch});
+  }
+
   render() {
-    const { todos, actions } = this.props;
+    const { todos, accounts, actions } = this.props;
 
     return (
       <div className={style.normal}>
-        <Header addTodo={actions.addTodo} />
-        <MainSection todos={todos} actions={actions} />
+        <Header changeTab={ this.handleChangeTab } />
+        <MainSection todos={todos} actions={actions} accounts={accounts} />
       </div>
     );
   }
