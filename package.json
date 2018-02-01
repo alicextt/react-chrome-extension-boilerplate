@@ -3,7 +3,7 @@
   "version": "0.9.0",
   "description": "Boilerplate for Chrome extension React.js project",
   "scripts": {
-    "dev": "node scripts/dev",
+    "dev": "npm run build && node scripts/dev",
     "build": "node scripts/build",
     "compress": "node scripts/compress",
     "compress-keygen": "crx keygen",

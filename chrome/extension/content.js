@@ -1,5 +1,5 @@
 // content.js
-console.log('i am in the content');
+console.log('i am in the content  ');
 window.onload = function () {
 
   chrome.runtime.onMessage.addListener(
