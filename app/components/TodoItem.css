@@ -44,7 +44,7 @@
   transition: all 0.2s ;
   position: absolute;
   top: 0;
-  right: 10px;
+  right: 20px;
   line-height: 40px;
   font-weight: 200;
   text-decoration: none;
@@ -75,33 +75,7 @@
   box-shadow: 0px 5px 5px -2px rgba(0, 0, 0, 0.25);
 }
 
-
-.normal .destroy {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 10px;
-  bottom: 0;
-  width: 40px;
-  height: 40px;
-  margin: auto 0;
-  font-size: 30px;
-  color: #cc9a9a;
-  margin-bottom: 11px;
-  transition: color 0.2s ease-out;
-}
-
-.normal .destroy:hover {
-  color: #af5b5e;
-}
-
-.normal .destroy:after {
-  content: '×';
-}
-
-.normal:hover .destroy {
-  display: block;
-}
+/*todos*/
 
 .normal .edit {
   display: none;

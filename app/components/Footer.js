@@ -76,15 +76,9 @@ export default class Footer extends Component {
   render() {
     return (
       <footer className={style.footer}>
-        {this.renderTodoCount()}
         <ul className={style.filters}>
-          {FILTERS.map((filter, i) =>
-            <li key={filter}>
-              {this.renderFilterLink(filter, this.filterHandlers[i])}
-            </li>
-          )}
+          Powered by GoDaddy GoCentral <span style={{color: '#AB6700'}}>Website Builder</span>
         </ul>
-        {this.renderClearButton()}
       </footer>
     );
   }

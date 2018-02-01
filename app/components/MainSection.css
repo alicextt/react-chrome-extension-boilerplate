@@ -129,6 +129,48 @@
   color: #737373;
 }
 
+/* Searchbox relevant style */
+
+.searchbox {
+  position: relative;
+  background: #F2F2F2;
+  width: calc(100% - 120px);
+  margin: 20px auto;
+  overflow: hidden;
+  height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.searchbox input {
+  width: calc(100% - 160px);
+  line-height: 50px;
+  font-size: 30px;
+  max-height: 90px;
+  border: 0;
+  padding: 0 2vw;
+  font-weight: 300;
+  color: #B2AFAF;
+  padding-left: 80px;
+  background: transparent;
+  outline-width: 0;
+}
+
+.searchbox svg {
+  margin: auto 0;
+  position: absolute;
+  height: 50px;
+  fill: #B2AFAF;
+  top: 0; bottom: 0;
+}
+
+.searchbox svg :hover { cursor: pointer;}
+
+.magnify {
+  left: 20px; right: 0;
+  fill: #B2AFAF;
+}
+
 /*
   Hack to remove background from Mobile Safari.
   Can't use it globally since it destroys checkboxes in Firefox
