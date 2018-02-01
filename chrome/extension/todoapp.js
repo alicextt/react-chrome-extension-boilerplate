@@ -7,6 +7,19 @@ import axios from 'axios';
 chrome.cookies.getAll({domain: '.godaddy.com', name:'auth_idp'}, function(cookies) {
     var cookie = cookies[0].value;
     var accounts = [];
+
+    chrome.tabs.query({ active: true, currentWindow: true}, function(tabs) {
+    var tab = tabs[0];
+    console.log(tab.url, tab.title);
+    chrome.tabs.getSelected(null, function(tab) {
+        chrome.tabs.sendMessage(tab.id, { message: "hello"}, function(msg) {
+            msg = msg || {};
+            console.log('onResponse', msg.farewell);
+          });
+      });
+    });
+
+
     axios.get("https://instantpage.api.godaddy.com/v2/websites", {
             headers: {
                 Cookie: `auth_idp=${cookie}`
