@@ -78,14 +78,14 @@ export default class MainSection extends Component {
   }
 
   render() {
-    const { todos, actions, accounts, active } = this.props;
+    const { todos, actions, accounts, active, domain } = this.props;
 
     if(active === 'accounts'){
       return (
         <section className={style.main}>
         <ul className={style.todoList}>
         {accounts.map(account =>
-          <TodoItem key={account.id} account={account} {...actions} />
+          <TodoItem key={account.id} account={account} domain={domain} {...actions} />
         )}
         </ul>
         {this.renderFooter(4)}

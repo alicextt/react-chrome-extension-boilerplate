@@ -44,7 +44,7 @@ export default class TodoItem extends Component {
   };
 
   openTab = (id) => {
-    chrome.tabs.create({active: true, url: `https://instantpage.godaddy.com/en-US/editor/${id}`});
+    chrome.tabs.create({active: true, url: `https://instantpage${this.props.domain}/en-US/editor/${id}`});
   }
 
   render() {

@@ -31,7 +31,8 @@ chrome.contextMenus.create({
   contexts: ['all'],
   documentUrlPatterns: [
     'https://github.com/*',
-    'https://instantpage.godaddy.com/*'
+    'https://instantpage.godaddy.com/*',
+    'https://instantpage.test-godaddy.com/*'
   ]
 });
 

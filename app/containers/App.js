@@ -32,13 +32,14 @@ export default class App extends Component {
   }
 
   render() {
-    const { todos, accounts, actions } = this.props;
+    const { todos, accounts, actions, domain } = this.props;
     const { active } = this.state;
 
     return (
       <div className={style.normal}>
         <Header changeTab={ this.handleChangeTab } active={active} />
-        <MainSection todos={todos} actions={actions} accounts={accounts} active={active} />
+        <MainSection todos={todos} actions={actions} accounts={accounts} active={active}
+        domain={domain} />
       </div>
     );
   }
