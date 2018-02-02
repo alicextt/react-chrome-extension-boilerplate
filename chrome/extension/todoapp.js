@@ -6,15 +6,18 @@ import axios from 'axios';
 
 chrome.tabs.query({ active: true, currentWindow: true}, function(tabs) {
   var tab = tabs[0];
-  console.log(tab.url)
+  console.log(tab.url);
+
+  let websiteId = tab.url.match(/\/editor\/(.*?)\//);
+  websiteId = websiteId && websiteId[1];
   if(tab.url.includes('test')){
-    renderFunc('.test-godaddy.com');
+    renderFunc('.test-godaddy.com', websiteId);
   } else {
-    renderFunc('.godaddy.com');
+    renderFunc('.godaddy.com', websiteId);
   }
 });
 
-const renderFunc = (domain) => {
+const renderFunc = (domain, websiteId) => {
   chrome.cookies.getAll({domain: domain, name:'auth_idp'}, function(cookies) {
     var cookie = cookies[0].value;
     var accounts = [];
@@ -38,7 +41,7 @@ const renderFunc = (domain) => {
         const createStore = require('../../app/store/configureStore');
 
         ReactDOM.render(
-          <Root store={createStore(initialState)} domain={domain} />,
+          <Root store={createStore(initialState)} domain={domain} websiteId={websiteId}/>,
           document.querySelector('#root')
         );
       });

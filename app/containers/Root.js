@@ -9,10 +9,10 @@ export default class Root extends Component {
   };
 
   render() {
-    const { store, domain } = this.props;
+    const { store, domain, websiteId } = this.props;
     return (
       <Provider store={store}>
-        <App domain={domain}/>
+        <App domain={domain} websiteId={websiteId}/>
       </Provider>
     );
   }

@@ -8,6 +8,7 @@ function sendMessage(value){
         console.log('msg');
       });
     } else{
+      window.close();
       chrome.tabs.sendMessage(tab.id, { message: value}, function(msg) {
         msg = msg || {};
         console.log('onResponse', msg.value);
