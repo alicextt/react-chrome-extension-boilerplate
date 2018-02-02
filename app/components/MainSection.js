@@ -12,7 +12,8 @@ const dict = {
   'Add Page': [],
   'Change Color': [],
   'Add Section': [],
-  'Section Reorder': []
+  'Section Reorder': [],
+  'Add Widget': []
 }
 
 const dictKey = Object.keys(dict);
@@ -58,15 +59,19 @@ export default class MainSection extends Component {
   renderSearch() {
     const { input } = this.state;
     // console.log(dictKey);
-    var filteredKey = dictKey.filter((v) => {
-      // console.log(v);
-      return scoreFunc(v, input|| '', 0)>=0.3;
+    var scores = dictKey.map((v) => {
+      return [scoreFunc(v, input|| '', 0), v];
     }) || [];
-
     var res = [];
-    dictKey.sort().map((props) => {res.push(
-       <a className={style.button} key={props} onClick={ this.sendAction.bind(null, props) }> {props}</a>
-    );});
+
+    scores.sort(function(a, b){ return a[0]-b[0] });
+
+    scores.map((props) => {
+      if(props[0]>=0.3){
+        const word = props[1];
+        res.push(<a className={style.button} key={word} onClick={ this.sendAction.bind(null, word) }> {word}</a>);
+      }
+    });
     return (
       <div>{res}</div>
     );
