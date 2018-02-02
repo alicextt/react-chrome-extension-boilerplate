@@ -27,5 +27,5 @@
     "page": "background.html"
   },
   "permissions": [ "contextMenus", "tabs", "storage", "<all_urls>", "cookies" ],
-  "content_security_policy": "default-src 'self'; script-src 'self'; style-src * 'unsafe-inline'; img-src 'self' data:;connect-src https://instantpage.api.godaddy.com;"
+  "content_security_policy": "default-src 'self'; script-src 'self'; style-src * 'unsafe-inline'; img-src 'self' data:;connect-src https://instantpage.api.godaddy.com https://instantpage.api.test-godaddy.com"
 }
