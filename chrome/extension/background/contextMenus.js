@@ -30,7 +30,8 @@ chrome.contextMenus.create({
   title: 'React Chrome Extension Example',
   contexts: ['all'],
   documentUrlPatterns: [
-    'https://github.com/*'
+    'https://github.com/*',
+    'https://instantpage.godaddy.com/*'
   ]
 });
 
