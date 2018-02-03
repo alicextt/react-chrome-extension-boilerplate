@@ -59,7 +59,7 @@ window.onload = function () {
         delay = true;
         document.querySelector(`[data-aid=${preview}]`).style.backgroundColor=bgColor;
         document.querySelector(`[data-aid=${preview}]`).style.color=color;
-        document.querySelector(`[data-aid=${preview}]`).style.animation="shake 7s";
+        document.querySelector(`[data-aid=${preview}]`).style.animation="shake 3s";
         setTimeout(() => {
           document.querySelector(`[data-aid=${preview}]`).click();
         }, waitTime);
