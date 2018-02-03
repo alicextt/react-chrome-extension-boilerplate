@@ -5,19 +5,21 @@ import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters'
 import style from './MainSection.css';
 import sendMessage from '../utils/util';
 import scoreFunc from '../utils/score';
+import classnames from 'classnames';
 
 const dict = {
   'Change Fonts': ['EDITOR_HEADER_EDIT_BUTTON', 'MYSITE_PIVOT_THEME', 'EDIT_FIELD_FONTS_SEGMENTED_CONTROL'],
-  'Reset Website': [],
-  'Add Page': [],
-  'Change Color': [],
-  'Add Section': [],
-  'Section Reorder': [],
-  'Add Widget': [],
-  'Delete Page': [],
-  'Add HTML': [],
-  'Google Analytics': [],
-  'Google Translate': []
+  'Reset Website': ['EDITOR_HEADER_EDIT_BUTTON', 'MYSITE_PIVOT_SETTINGS', 'EDIT_FIELD_BACKUP_RESTORE'],
+  'Add Page': ['EDITOR_HEADER_EDIT_BUTTON', 'MYSITE_PIVOT_PAGES'],
+  'Change Color': ['EDITOR_HEADER_EDIT_BUTTON', 'MYSITE_PIVOT_THEME'],
+  'Add Section': ['EDITOR_HEADER_EDIT_BUTTON', 'ADD_WIDGET_PLUS_ICON'],
+  'Add Widget': ['EDITOR_HEADER_EDIT_BUTTON', 'ADD_WIDGET_PLUS_ICON'],
+  'Delete Page': ['EDITOR_HEADER_EDIT_BUTTON', 'MYSITE_PIVOT_PAGES'],
+  'Change Page Name': ['EDITOR_HEADER_EDIT_BUTTON','MYSITE_PIVOT_PAGES'],
+  'Add HTML': ['EDITOR_HEADER_EDIT_BUTTON', 'ADD_WIDGET_PLUS_ICON'],
+  'Google Analytics': ['EDITOR_HEADER_EDIT_BUTTON', 'MYSITE_PIVOT_SETTINGS', 'EDIT_FIELD_GOOGLE_AN'],
+  'Google Translate': ['EDITOR_HEADER_EDIT_BUTTON', 'MYSITE_PIVOT_SETTINGS','EDIT_FIELD_GOOGLE_TRANSLATE'],
+  'Change Business Name': ['EDITOR_HEADER_EDIT_BUTTON','MYSITE_PIVOT_SETTINGS', 'EDIT_FIELD_BUSINESS_PROFILE']
 }
 
 const dictKey = Object.keys(dict);
@@ -31,7 +33,7 @@ export default class MainSection extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.state = { input: '', selectedId: this.props.websiteId };
+    this.state = { input: '', selectedId: this.props.websiteId, searchId: 0, listLength: 0 };
   }
 
   componentWillMount () {
@@ -42,18 +44,39 @@ export default class MainSection extends Component {
     document.removeEventListener("keydown", this._handleKeyDown);
   }
 
+  componentWillReceiveProps(props){
+    if(this.props.active === 'accounts' && props.active === 'search'){
+      this.setState({searchId: 0});
+    }
+  }
+
   _handleKeyDown= (event) => {
+    const { active } = this.props;
+    const {selectedId, searchId} = this.state;
     switch( event.keyCode ) {
         case 13:
-            this.refs[this.state.selectedId].openTab(this.state.selectedId);
+          if(active === 'accounts'){
+            this.refs[selectedId].openTab(selectedId);
+          }else{
+            this.refs[searchId].click();
+          }
             break;
         case 40: // down arrow
-            const next = this.findId(true, this.state.selectedId);
+        console.log(this.list)
+          if(active === 'accounts'){
+            const next = this.findId(true, selectedId);
             this.setState({selectedId: next.id});
+          }else {
+            this.setState({searchId: searchId +1});
+          }
             break;
       case 38: // up arrow
-          const prev = this.findId(false, this.state.selectedId);
+      if(active === 'accounts'){
+          const prev = this.findId(false, selectedId);
           this.setState({selectedId: prev.id});
+        } else {
+          this.setState({searchId: (searchId >1 ? searchId-1 : 0)});
+        }
           break;
         case 37: // left arrow
             if(this.props.active==='search'){
@@ -87,6 +110,9 @@ export default class MainSection extends Component {
   }
 
   handleChange = (e) => {
+    if(!e.target.value){
+      this.setState({searchId: 0});
+    }
     this.setState({ input : e.target.value});
   }
 
@@ -114,19 +140,25 @@ export default class MainSection extends Component {
     var res = [];
     var scores = [];
     if(input === '*'){
+      let i = 0;
       dictKey.sort().map((word) => {
-          res.push(<a className={style.button} key={word} onClick={ this.sendAction.bind(null, word) }> {word}</a>);
+          res.push(<div className={classnames({ [style.button]: true, [style.select]:  this.state.searchId === i})} key={i} onClick={ this.sendAction.bind(null, word) } ref={i}> {word} <div className={style.inside}> Show Me How</div></div>);
+          i++;
       });
+      this.list = i;
     } else {
+      let i = 0;
       scores = dictKey.map((v) => {
         return [scoreFunc(v, input|| '', 0), v];
       }) || [];
       scores.sort(function(a, b){ return a[0]-b[0] }).map((props) => {
         if(props[0]>=0.3){
           const word = props[1];
-          res.push(<a className={style.button} key={word} onClick={ this.sendAction.bind(null, word) }> {word}</a>);
+          res.push(<div className={classnames({ [style.button]: true, [style.select]:  this.state.searchId === i})} key={i} onClick={ this.sendAction.bind(null, word) } ref={i}> {word} <div className={style.inside}> Show Me How</div></div>);
+          i++;
         }
       });
+      this.list = i;
     }
 
     return (

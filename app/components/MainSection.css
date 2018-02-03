@@ -5,6 +5,19 @@
   margin-top: 5px;
 }
 
+/*selected*/
+
+.select::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    right: 15px;
+    bottom: 0px;
+    left: 30px;
+    border: 3px solid gray;
+    border-radius: 20px;
+}
+
 .align{
   margin-left: 60px;
   margin-bottom: 10px;
@@ -183,18 +196,35 @@
 /* button */
 .button {
   display: block;
-  padding: 0;
-  height: 40px;
-  margin: 20px 20px 10px 0px;
-  padding-left: 100px;
-  text-align: left;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 25px;
-  cursor: pointer;
-  border-bottom: 1px solid #ededed;
+    position: relative;
+    height: 40px;
+    padding: 20px 20px 0px 50px;
+    text-align: left;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 25px;
+    cursor: pointer;
+    border-bottom: 1px solid #ededed;
 }
 
+.inside {
+  display: block;
+    width: auto;
+    float: left;
+    margin: 10px 0px 0px 0;
+    padding: 0px 10px 0px 10px;
+    text-align: center;
+    color: #FFF;
+    border-radius: 5px;
+    transition: all 0.2s;
+    position: absolute;
+    top: 0;
+    right: 30px;
+    line-height: 40px;
+    font-size: 18px;
+    text-decoration: none;
+    background: #00AE68;
+}
 
 /*
   Hack to remove background from Mobile Safari.
